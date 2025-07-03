@@ -185,6 +185,64 @@ For technical issues:
 - Social sharing features
 - Multi-language support
 
+## 🆕 2025 Backend Upgrade Overview
+
+The app now runs with a full backend on **Vercel** instead of storing everything in browser-local storage. Key upgrades:
+
+1. **Authentication** – Powered by **Clerk** (username / email / password).
+2. **Database** – **Neon Postgres** accessed through Vercel's `@vercel/postgres` helper.
+3. **Serverless APIs** – All database logic lives in `/api` functions (e.g. `api/setup-user.ts`).
+4. **Environment Isolation** – Each sub-domain (health, crm, etc.) uses its **own** env-var prefix so projects never share a database by accident.
+
+### Required Environment Variables
+| Variable | Scope | Purpose |
+|----------|-------|---------|
+| `REACT_APP_CLERK_PUBLISHABLE_KEY` | Front-end | Public Clerk key (loads the widgets) |
+| `CLERK_SECRET_KEY` | Server | Private Clerk key for serverless functions |
+| `HEALTH_DATABASE_URL` | Server | Connection string for this project's Neon database <br/> (preferred – keeps isolation) |
+| `POSTGRES_URL` | Server | Fallback for local dev or if you don't want a project-specific var |
+
+> ⚠️  **Always set `HEALTH_DATABASE_URL` in Vercel.** The code converts it into `POSTGRES_URL` at runtime so the helper picks it up, preventing accidental reuse of a global database.
+
+### New Project Structure (excerpt)
+```
+api/
+  └─ setup-user.ts      # Serverless function: DB init + user upsert
+src/
+  lib/
+    └─ database.ts      # Shared db helper (server-only)
+    └─ auth.tsx         # Front-end auth provider (calls setup-user API)
+``` 
+
+### Local Development
+1. Create a `.env` file in the project root:
+   ```bash
+   # Clerk
+   REACT_APP_CLERK_PUBLISHABLE_KEY=pk_live_…
+   CLERK_SECRET_KEY=sk_live_…
+
+   # Database (use the same value for both vars if you like)
+   HEALTH_DATABASE_URL="postgres://…?sslmode=require&connect_timeout=10"
+   POSTGRES_URL="$HEALTH_DATABASE_URL"
+   ```
+2. `npm start` – the dev server proxies `/api/*` to Vercel's serverless runtime automatically.
+
+### Deployment Steps (Vercel)
+1. Add the four environment variables above in **Project → Settings → Environment Variables**.
+2. Push to `main`; Vercel builds CRA and the `/api` TypeScript functions.
+3. First load prints a one-time log:
+   ```
+   Database env check → { POSTGRES_URL_present: true, HEALTH_DATABASE_URL_present: true, using: 'HEALTH_DATABASE_URL' }
+   ```
+4. Done – login → DB table auto-creates → user row upserts.
+
+---
+
+### Data Persistence (Updated)
+- **Server-side**: All cleanses, journal entries, and biofeedback are stored in Postgres (Neon).
+- **Client-side**: The UI caches form state transiently but nothing permanent remains in local storage.
+- **API Security**: Every `/api/*` route validates the signed-in user via Clerk before touching the database.
+
 ---
 
 **Happy Cleansing! 🌱**
