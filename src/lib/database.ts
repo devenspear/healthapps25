@@ -1,4 +1,11 @@
-import { sql } from '@vercel/postgres';
+import { createPool } from '@vercel/postgres';
+
+// Use HEALTH_DATABASE_URL to avoid conflicts with other apps
+const pool = createPool({
+  connectionString: process.env.HEALTH_DATABASE_URL
+});
+
+const sql = pool.sql;
 
 // Database initialization - create tables if they don't exist
 export async function initializeDatabase() {
