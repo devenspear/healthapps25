@@ -1,10 +1,16 @@
 import { createPool } from '@vercel/postgres';
 
 // Use HEALTH_DATABASE_URL for health tracker to avoid conflicts
-const connectionString = process.env.HEALTH_DATABASE_URL;
+const connectionString = process.env.HEALTH_DATABASE_URL || process.env.DATABASE_URL;
+
+console.log('Environment check:', {
+  hasHealthDB: !!process.env.HEALTH_DATABASE_URL,
+  hasPostgresDB: !!process.env.DATABASE_URL,
+  usingConnection: connectionString ? 'Found' : 'Missing'
+});
 
 if (!connectionString) {
-  throw new Error('HEALTH_DATABASE_URL environment variable is required for health tracker');
+  throw new Error('Database connection required: HEALTH_DATABASE_URL or DATABASE_URL environment variable missing');
 }
 
 const pool = createPool({ connectionString });
