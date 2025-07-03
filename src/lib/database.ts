@@ -1,4 +1,14 @@
-import { sql } from '@vercel/postgres';
+import { createPool } from '@vercel/postgres';
+
+// Use HEALTH_DATABASE_URL for health tracker to avoid conflicts
+const connectionString = process.env.HEALTH_DATABASE_URL;
+
+if (!connectionString) {
+  throw new Error('HEALTH_DATABASE_URL environment variable is required for health tracker');
+}
+
+const pool = createPool({ connectionString });
+const sql = pool.sql;
 
 // Database initialization - create tables if they don't exist
 export async function initializeDatabase() {

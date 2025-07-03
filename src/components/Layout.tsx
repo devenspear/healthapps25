@@ -41,15 +41,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <div className="flex items-center space-x-3">
             <div className="w-9 h-9 hero-gradient rounded-full flex items-center justify-center">
               <span className="text-white font-semibold text-sm">
-                {user?.firstName ? user.firstName.charAt(0).toUpperCase() : 'U'}
+                {user?.username ? user.username.charAt(0).toUpperCase() : 'U'}
               </span>
             </div>
             <div className="hidden sm:block">
               <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                Welcome back, {user?.firstName || 'User'}!
+                Welcome back, {user?.username || 'User'}!
               </p>
               <p className="text-xs text-gray-600 dark:text-gray-400">
-                {user?.firstName && user?.lastName ? `${user.firstName} ${user.lastName}` : 'Health Tracker User'}
+                @{user?.username || 'health-tracker-user'}
               </p>
             </div>
           </div>
