@@ -45,4 +45,41 @@
   .hero-gradient {
     @apply bg-gradient-to-r from-purple-600 via-blue-600 to-blue-700 dark:from-purple-700 dark:via-blue-700 dark:to-blue-800;
   }
+
+  /* Clerk Auth Styling */
+  .clerk-auth-container {
+    @apply space-y-4;
+  }
+  
+  .clerk-auth-container .cl-card {
+    @apply shadow-none bg-transparent border-0;
+  }
+  
+  .clerk-auth-container .cl-headerTitle {
+    @apply text-gray-900 dark:text-gray-100 text-xl font-semibold;
+  }
+  
+  .clerk-auth-container .cl-headerSubtitle {
+    @apply text-gray-600 dark:text-gray-400;
+  }
+  
+  .clerk-auth-container .cl-socialButtons {
+    @apply space-y-2;
+  }
+  
+  .clerk-auth-container .cl-socialButtonsBlockButton {
+    @apply w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-lg py-2.5 px-4 font-medium transition-colors;
+  }
+  
+  .clerk-auth-container .cl-formFieldInput {
+    @apply w-full px-4 py-3 border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-colors duration-200;
+  }
+  
+  .clerk-auth-container .cl-formButtonPrimary {
+    @apply w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl;
+  }
+  
+  .clerk-auth-container .cl-footerActionLink {
+    @apply text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium;
+  }
 } 

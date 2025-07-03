@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './lib/auth';
+import AuthGuard from './components/AuthGuard';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { UserProgress } from './types';
 import Layout from './components/Layout';
@@ -23,7 +25,7 @@ const initialProgress: UserProgress = {
   }, {} as { [day: number]: any })
 };
 
-function App() {
+function AppContent() {
   const [progress, setProgress] = useLocalStorage<UserProgress>('cleanse-progress', initialProgress);
 
   const updateProgress = (newProgress: Partial<UserProgress>) => {
@@ -64,6 +66,16 @@ function App() {
         </Layout>
       </div>
     </Router>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AuthGuard>
+        <AppContent />
+      </AuthGuard>
+    </AuthProvider>
   );
 }
 

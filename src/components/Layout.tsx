@@ -8,9 +8,12 @@ import {
   BookOpen, 
   Target,
   Sun,
-  Moon
+  Moon,
+  LogOut,
+  User
 } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
+import { useAppAuth } from '../lib/auth';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -19,6 +22,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
+  const { user, signOut } = useAppAuth();
 
   const navItems = [
     { path: '/', icon: Home, label: 'Dashboard' },
@@ -34,21 +38,44 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       {/* Header */}
       <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700 px-4 py-3">
         <div className="flex items-center justify-between">
-          <div className="w-8"></div> {/* Spacer for centering */}
+          {/* User Profile */}
+          <div className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center">
+              <User className="h-4 w-4 text-white" />
+            </div>
+            <div className="hidden sm:block">
+              <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                {user?.firstName || 'User'}
+              </p>
+            </div>
+          </div>
+
+          {/* App Title */}
           <div className="hero-gradient rounded-lg px-4 py-1">
             <span className="text-white font-semibold text-sm">✨ Health Tracker</span>
           </div>
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
-            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-          >
-            {theme === 'light' ? (
-              <Moon className="h-5 w-5 text-gray-600 dark:text-gray-300" />
-            ) : (
-              <Sun className="h-5 w-5 text-gray-600 dark:text-gray-300" />
-            )}
-          </button>
+
+          {/* Actions */}
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
+              aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            >
+              {theme === 'light' ? (
+                <Moon className="h-5 w-5 text-gray-600 dark:text-gray-300" />
+              ) : (
+                <Sun className="h-5 w-5 text-gray-600 dark:text-gray-300" />
+              )}
+            </button>
+            <button
+              onClick={() => signOut()}
+              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
+              aria-label="Sign out"
+            >
+              <LogOut className="h-5 w-5 text-gray-600 dark:text-gray-300" />
+            </button>
+          </div>
         </div>
       </header>
 
