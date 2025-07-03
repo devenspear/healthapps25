@@ -1,20 +1,26 @@
-import { createPool } from '@vercel/postgres';
+import { sql } from '@vercel/postgres';
 
-// Use HEALTH_DATABASE_URL for health tracker to avoid conflicts
-const connectionString = process.env.HEALTH_DATABASE_URL || process.env.DATABASE_URL;
+// Prefer the project-specific variable if it exists so we don't accidentally
+// connect to some other app's shared database.
+const hasHealthDbUrl = !!process.env.HEALTH_DATABASE_URL;
+const hasPostgresUrl = !!process.env.POSTGRES_URL;
 
-console.log('Environment check:', {
-  hasHealthDB: !!process.env.HEALTH_DATABASE_URL,
-  hasPostgresDB: !!process.env.DATABASE_URL,
-  usingConnection: connectionString ? 'Found' : 'Missing'
-});
-
-if (!connectionString) {
-  throw new Error('Database connection required: HEALTH_DATABASE_URL or DATABASE_URL environment variable missing');
+// Prefer the project-specific variable if it exists so we don't accidentally
+// connect to some other app's shared database.
+if (hasHealthDbUrl) {
+  process.env.POSTGRES_URL = process.env.HEALTH_DATABASE_URL;
 }
 
-const pool = createPool({ connectionString });
-const sql = pool.sql;
+if (!process.env.POSTGRES_URL) {
+  throw new Error('Database connection required: set HEALTH_DATABASE_URL (preferred) or POSTGRES_URL environment variable');
+}
+
+// Helpful runtime log (safe for now – remove once confirmed)
+console.log('Database env check →', {
+  POSTGRES_URL_present: !!process.env.POSTGRES_URL,
+  HEALTH_DATABASE_URL_present: hasHealthDbUrl,
+  using: hasHealthDbUrl ? 'HEALTH_DATABASE_URL' : 'POSTGRES_URL'
+});
 
 // Database initialization - create tables if they don't exist
 export async function initializeDatabase() {
