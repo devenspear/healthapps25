@@ -73,16 +73,18 @@ const AuthPage: React.FC = () => {
             </div>
           </div>
 
+          {isSignUp && (
+            <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg">
+              <p className="text-sm text-blue-700 dark:text-blue-300">
+                💡 <strong>Please provide your first and last name</strong> during signup for a personalized experience throughout your health journey.
+              </p>
+            </div>
+          )}
+
           <div className="clerk-auth-container">
             {isSignUp ? (
               <SignUp 
                 routing="hash"
-                fields={[
-                  { name: 'firstName', required: true },
-                  { name: 'lastName', required: true },
-                  { name: 'emailAddress', required: true },
-                  { name: 'password', required: true }
-                ]}
                 appearance={{
                   elements: {
                     formButtonPrimary: 'bg-primary-600 hover:bg-primary-700',
