@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { ClerkProvider, useAuth, useUser } from '@clerk/clerk-react';
-import { createUser, initializeDatabase } from './database';
 
 const publishableKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 
@@ -30,25 +29,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 function AuthWrapper({ children }: { children: React.ReactNode }) {
   const { isLoaded, isSignedIn, userId, signOut } = useAuth();
   const { user } = useUser();
-  const [dbInitialized, setDbInitialized] = useState(false);
+  const [setupDone, setSetupDone] = useState(false);
 
   // Initialize database and create user when signed in
   useEffect(() => {
     async function setupUser() {
-      if (isLoaded && isSignedIn && userId && user && !dbInitialized) {
+      if (isLoaded && isSignedIn && userId && user && !setupDone) {
         try {
-          // Initialize database tables
-          await initializeDatabase();
-          
-          // Create or update user in our database
-          await createUser(
-            userId,
-            user.primaryEmailAddress?.emailAddress,
-            user.firstName || undefined,
-            user.lastName || undefined
-          );
-          
-          setDbInitialized(true);
+          await fetch('/api/setup-user', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              userId,
+              email: user.primaryEmailAddress?.emailAddress,
+              firstName: user.firstName,
+              lastName: user.lastName,
+            }),
+          });
+
+          setSetupDone(true);
           console.log('User setup completed');
         } catch (error) {
           console.error('Error setting up user:', error);
@@ -57,7 +56,7 @@ function AuthWrapper({ children }: { children: React.ReactNode }) {
     }
 
     setupUser();
-  }, [isLoaded, isSignedIn, userId, user, dbInitialized]);
+  }, [isLoaded, isSignedIn, userId, user, setupDone]);
 
   const authValue: AuthContextType = {
     isLoaded,
