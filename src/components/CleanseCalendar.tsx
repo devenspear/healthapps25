@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UserProgress, DayEntry, Task } from '../types';
+import { UserProgress } from '../types';
 import { ChevronLeft, ChevronRight, CheckCircle, Circle } from 'lucide-react';
 
 interface CleanseCalendarProps {
@@ -72,8 +72,8 @@ const CleanseCalendar: React.FC<CleanseCalendarProps> = ({ progress, updateProgr
   if (!dayEntry) {
     return (
       <div className="p-4">
-        <div className="card text-center">
-          <p className="text-gray-600">Day not found</p>
+        <div className="card-gradient text-center">
+          <p className="text-gray-600 dark:text-gray-400">Day not found</p>
         </div>
       </div>
     );
@@ -92,7 +92,7 @@ const CleanseCalendar: React.FC<CleanseCalendarProps> = ({ progress, updateProgr
   return (
     <div className="p-4 space-y-6">
       {/* Day Navigation */}
-      <div className="card">
+      <div className="card-gradient">
         <div className="flex items-center justify-between mb-4">
           <button
             onClick={() => navigateDay('prev')}
@@ -104,8 +104,8 @@ const CleanseCalendar: React.FC<CleanseCalendarProps> = ({ progress, updateProgr
           </button>
           
           <div className="text-center">
-            <h2 className="text-xl font-bold text-gray-900">Day {selectedDay}</h2>
-            <p className="text-sm text-gray-600">Week {dayEntry.week}</p>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Day {selectedDay}</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Week {dayEntry.week}</p>
           </div>
           
           <button
@@ -127,8 +127,8 @@ const CleanseCalendar: React.FC<CleanseCalendarProps> = ({ progress, updateProgr
       </div>
 
       {/* Daily Tasks */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Today's Protocol</h3>
+      <div className="card-gradient">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Today's Protocol</h3>
         <div className="space-y-3">
           {dayEntry.tasks.map((task) => (
             <div
@@ -161,9 +161,9 @@ const CleanseCalendar: React.FC<CleanseCalendarProps> = ({ progress, updateProgr
       </div>
 
       {/* Die-Off Score */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Die-Off Score</h3>
-        <p className="text-sm text-gray-600 mb-4">
+      <div className="card-gradient">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Die-Off Score</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
           Rate your detox symptoms today (1 = minimal, 10 = intense)
         </p>
         <div className="grid grid-cols-5 gap-2">
@@ -189,8 +189,8 @@ const CleanseCalendar: React.FC<CleanseCalendarProps> = ({ progress, updateProgr
       </div>
 
       {/* Quick Day Selector */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Day Select</h3>
+      <div className="card-gradient">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Quick Day Select</h3>
         <div className="grid grid-cols-7 gap-2">
           {Array.from({ length: 28 }, (_, i) => i + 1).map((day) => {
             const isCompleted = progress.completedDays.includes(day);

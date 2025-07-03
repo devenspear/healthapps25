@@ -28,17 +28,17 @@ const SupplementStack: React.FC = () => {
   return (
     <div className="p-4 space-y-6">
       {/* Header */}
-      <div className="card">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+      <div className="hero-gradient rounded-2xl p-6 text-white mb-6">
+        <h2 className="text-2xl font-bold mb-2">
           💊 Supplement Stack
         </h2>
-        <p className="text-gray-600">
+        <p className="text-white/90">
           Complete guide to your parasite cleanse supplements
         </p>
       </div>
 
       {/* Search and Filter */}
-      <div className="card space-y-4">
+      <div className="card-gradient space-y-4">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
           <input
@@ -70,9 +70,9 @@ const SupplementStack: React.FC = () => {
       {/* Supplements Grid */}
       <div className="space-y-4">
         {filteredSupplements.map((supplement, index) => (
-          <div key={index} className="card">
+          <div key={index} className="card-gradient">
             <div className="flex items-start justify-between mb-3">
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                 {supplement.name}
               </h3>
               <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPhaseColor(supplement.phase)}`}>
@@ -80,30 +80,30 @@ const SupplementStack: React.FC = () => {
               </span>
             </div>
             
-            <p className="text-gray-600 mb-4">{supplement.purpose}</p>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">{supplement.purpose}</p>
             
             <div className="grid grid-cols-1 gap-3">
               <div className="flex items-center space-x-3">
                 <Package className="h-4 w-4 text-gray-400" />
                 <div>
-                  <p className="text-sm font-medium text-gray-700">Dosage</p>
-                  <p className="text-sm text-gray-600">{supplement.dosage}</p>
+                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Dosage</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{supplement.dosage}</p>
                 </div>
               </div>
               
               <div className="flex items-center space-x-3">
                 <Clock className="h-4 w-4 text-gray-400" />
                 <div>
-                  <p className="text-sm font-medium text-gray-700">Timing</p>
-                  <p className="text-sm text-gray-600">{supplement.timing}</p>
+                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Timing</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{supplement.timing}</p>
                 </div>
               </div>
               
               <div className="flex items-center space-x-3">
                 <Target className="h-4 w-4 text-gray-400" />
                 <div>
-                  <p className="text-sm font-medium text-gray-700">Brand</p>
-                  <p className="text-sm text-gray-600">{supplement.brand}</p>
+                  <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Brand</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{supplement.brand}</p>
                 </div>
               </div>
             </div>
@@ -112,8 +112,8 @@ const SupplementStack: React.FC = () => {
       </div>
 
       {filteredSupplements.length === 0 && (
-        <div className="card text-center">
-          <p className="text-gray-600">No supplements found matching your criteria.</p>
+        <div className="card-gradient text-center">
+          <p className="text-gray-600 dark:text-gray-400">No supplements found matching your criteria.</p>
         </div>
       )}
 

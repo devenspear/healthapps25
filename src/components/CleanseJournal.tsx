@@ -93,20 +93,20 @@ const CleanseJournal: React.FC<CleanseJournalProps> = ({ progress, updateProgres
   return (
     <div className="p-4 space-y-6">
       {/* Header */}
-      <div className="card">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+      <div className="hero-gradient rounded-2xl p-6 text-white mb-6">
+        <h2 className="text-2xl font-bold mb-2">
           📖 Cleanse Journal
         </h2>
-        <p className="text-gray-600">
+        <p className="text-white/90">
           Reflect on your daily experience and track your journey
         </p>
       </div>
 
       {/* Date Selection */}
-      <div className="card">
+      <div className="card-gradient">
         <div className="flex items-center space-x-3 mb-4">
           <Calendar className="h-5 w-5 text-primary-600" />
-          <h3 className="text-lg font-semibold text-gray-900">Select Date</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Select Date</h3>
         </div>
                  <input
            type="date"
@@ -138,10 +138,10 @@ const CleanseJournal: React.FC<CleanseJournalProps> = ({ progress, updateProgres
 
       {/* Reflection Sections */}
       {reflectionSections.map((section) => (
-        <div key={section.key} className="card">
+        <div key={section.key} className="card-gradient">
           <div className="flex items-center space-x-2 mb-3">
             <span className="text-xl">{section.icon}</span>
-            <h3 className="text-lg font-semibold text-gray-900">{section.label}</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{section.label}</h3>
           </div>
           <textarea
             value={(formData as any)[section.key] || ''}
@@ -153,14 +153,14 @@ const CleanseJournal: React.FC<CleanseJournalProps> = ({ progress, updateProgres
       ))}
 
       {/* Die-Off Log */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="card-gradient">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
           🦠 Die-Off Log
         </h3>
         
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Symptoms
             </label>
             <textarea
@@ -172,7 +172,7 @@ const CleanseJournal: React.FC<CleanseJournalProps> = ({ progress, updateProgres
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Intensity (1-10)
             </label>
             <div className="grid grid-cols-5 gap-2">
@@ -198,7 +198,7 @@ const CleanseJournal: React.FC<CleanseJournalProps> = ({ progress, updateProgres
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Mitigation Steps
             </label>
             <textarea
@@ -212,9 +212,9 @@ const CleanseJournal: React.FC<CleanseJournalProps> = ({ progress, updateProgres
       </div>
 
       {/* Food Intake */}
-      <div className="card">
+      <div className="card-gradient">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-gray-900">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
             🍽️ Food Intake
           </h3>
           <button
@@ -228,7 +228,7 @@ const CleanseJournal: React.FC<CleanseJournalProps> = ({ progress, updateProgres
 
         <div className="space-y-4">
           {formData.meals.map((meal, index) => (
-            <div key={index} className="border border-gray-200 rounded-lg p-4">
+            <div key={index} className="border border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-gray-50 dark:bg-gray-700/50">
               <div className="flex justify-between items-center mb-3">
                 <input
                   type="text"
@@ -250,7 +250,7 @@ const CleanseJournal: React.FC<CleanseJournalProps> = ({ progress, updateProgres
               
               <div className="space-y-3">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Foods
                   </label>
                   <textarea
@@ -262,7 +262,7 @@ const CleanseJournal: React.FC<CleanseJournalProps> = ({ progress, updateProgres
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Notes
                   </label>
                   <textarea
@@ -279,7 +279,7 @@ const CleanseJournal: React.FC<CleanseJournalProps> = ({ progress, updateProgres
       </div>
 
       {/* Save Button */}
-      <div className="card">
+      <div className="card-gradient">
         <button
           onClick={handleSave}
           className="btn-primary w-full flex items-center justify-center space-x-2"
@@ -291,12 +291,12 @@ const CleanseJournal: React.FC<CleanseJournalProps> = ({ progress, updateProgres
 
       {/* Entry Count */}
       {Object.keys(progress.journalEntries).length > 0 && (
-        <div className="card">
+        <div className="card-gradient">
           <div className="flex items-center space-x-3 mb-2">
             <BookOpen className="h-5 w-5 text-purple-600" />
-            <h3 className="text-lg font-semibold text-gray-900">Your Journal</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Your Journal</h3>
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             You've completed {Object.keys(progress.journalEntries).length} journal entr{Object.keys(progress.journalEntries).length === 1 ? 'y' : 'ies'}. 
             Regular reflection helps track your progress and identify patterns.
           </p>

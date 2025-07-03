@@ -85,11 +85,11 @@ const PostCleanseIntegration: React.FC = () => {
   return (
     <div className="p-4 space-y-6">
       {/* Header */}
-      <div className="card">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+      <div className="hero-gradient rounded-2xl p-6 text-white mb-6">
+        <h2 className="text-2xl font-bold mb-2">
           ⚙️ Post-Cleanse Integration
         </h2>
-        <p className="text-gray-600">
+        <p className="text-white/90">
           Your comprehensive guide for the rebuilding phase and beyond
         </p>
       </div>
@@ -99,16 +99,16 @@ const PostCleanseIntegration: React.FC = () => {
         {rebuildingPhases.map((phase, index) => {
           const Icon = phase.icon;
           return (
-            <div key={index} className="card">
+            <div key={index} className="card-gradient">
               <div className="flex items-center space-x-3 mb-4">
                 <Icon className={`h-6 w-6 ${phase.color}`} />
-                <h3 className="text-lg font-semibold text-gray-900">{phase.title}</h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{phase.title}</h3>
               </div>
               <ul className="space-y-2">
                 {phase.items.map((item, itemIndex) => (
                   <li key={itemIndex} className="flex items-start space-x-3">
                     <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">{item}</span>
+                    <span className="text-gray-700 dark:text-gray-300">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -118,30 +118,30 @@ const PostCleanseIntegration: React.FC = () => {
       </div>
 
       {/* Timeline */}
-      <div className="card">
+      <div className="card-gradient">
         <div className="flex items-center space-x-3 mb-4">
           <Calendar className="h-6 w-6 text-blue-600" />
-          <h3 className="text-lg font-semibold text-gray-900">Integration Timeline</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Integration Timeline</h3>
         </div>
         <div className="space-y-4">
           <div className="border-l-4 border-green-500 pl-4">
-            <h4 className="font-medium text-gray-900">Days 22-24: Initial Repair</h4>
-            <p className="text-sm text-gray-600">Begin gut repair supplements and bone broth fast</p>
+            <h4 className="font-medium text-gray-900 dark:text-gray-100">Days 22-24: Initial Repair</h4>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Begin gut repair supplements and bone broth fast</p>
           </div>
           <div className="border-l-4 border-blue-500 pl-4">
-            <h4 className="font-medium text-gray-900">Days 25-27: Food Reintroduction</h4>
-            <p className="text-sm text-gray-600">Gradually reintroduce foods while monitoring tolerance</p>
+            <h4 className="font-medium text-gray-900 dark:text-gray-100">Days 25-27: Food Reintroduction</h4>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Gradually reintroduce foods while monitoring tolerance</p>
           </div>
           <div className="border-l-4 border-purple-500 pl-4">
-            <h4 className="font-medium text-gray-900">Day 28+: Long-term Integration</h4>
-            <p className="text-sm text-gray-600">Establish sustainable practices for ongoing gut health</p>
+            <h4 className="font-medium text-gray-900 dark:text-gray-100">Day 28+: Long-term Integration</h4>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Establish sustainable practices for ongoing gut health</p>
           </div>
         </div>
       </div>
 
       {/* Success Metrics */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="card-gradient">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
           🎯 Success Metrics to Track
         </h3>
         <div className="grid grid-cols-2 gap-3">
@@ -157,15 +157,15 @@ const PostCleanseIntegration: React.FC = () => {
       {/* Long-term Integration */}
       <div className="space-y-4">
         {longTermIntegration.map((section, index) => (
-          <div key={index} className="card">
-            <h3 className="text-lg font-semibold text-gray-900 mb-3">
+          <div key={index} className="card-gradient">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">
               {section.category}
             </h3>
             <ul className="space-y-2">
               {section.recommendations.map((rec, recIndex) => (
                 <li key={recIndex} className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-primary-600 rounded-full mt-2 flex-shrink-0" />
-                  <span className="text-gray-700">{rec}</span>
+                  <span className="text-gray-700 dark:text-gray-300">{rec}</span>
                 </li>
               ))}
             </ul>

@@ -67,20 +67,20 @@ const BiofeedbackTracker: React.FC<BiofeedbackTrackerProps> = ({ progress, updat
   return (
     <div className="p-4 space-y-6">
       {/* Header */}
-      <div className="card">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+      <div className="hero-gradient rounded-2xl p-6 text-white mb-6">
+        <h2 className="text-2xl font-bold mb-2">
           📈 Biofeedback Tracker
         </h2>
-        <p className="text-gray-600">
+        <p className="text-white/90">
           Track your physiological and subjective metrics
         </p>
       </div>
 
       {/* Date Selection */}
-      <div className="card">
+      <div className="card-gradient">
         <div className="flex items-center space-x-3 mb-4">
           <Calendar className="h-5 w-5 text-primary-600" />
-          <h3 className="text-lg font-semibold text-gray-900">Select Date</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Select Date</h3>
         </div>
                  <input
            type="date"
@@ -110,12 +110,12 @@ const BiofeedbackTracker: React.FC<BiofeedbackTrackerProps> = ({ progress, updat
       </div>
 
       {/* Physiological Metrics */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Physiological Metrics</h3>
+      <div className="card-gradient">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Physiological Metrics</h3>
         <div className="space-y-4">
           {physiologicalMetrics.map((metric) => (
             <div key={metric.key}>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 {metric.label}
               </label>
               <input
@@ -135,16 +135,16 @@ const BiofeedbackTracker: React.FC<BiofeedbackTrackerProps> = ({ progress, updat
       </div>
 
       {/* Subjective Metrics */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Subjective Metrics (1-10)</h3>
+      <div className="card-gradient">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Subjective Metrics (1-10)</h3>
         <div className="space-y-6">
           {subjectiveMetrics.map((metric) => (
             <div key={metric.key}>
               <div className="flex justify-between items-center mb-2">
-                <label className="text-sm font-medium text-gray-700">
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   {metric.label}
                 </label>
-                <span className="text-xs text-gray-500">{metric.description}</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">{metric.description}</span>
               </div>
               <div className="grid grid-cols-5 gap-2">
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((score) => (
@@ -172,8 +172,8 @@ const BiofeedbackTracker: React.FC<BiofeedbackTrackerProps> = ({ progress, updat
       </div>
 
       {/* Notes */}
-      <div className="card">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+      <div className="card-gradient">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
           Additional Notes
         </label>
         <textarea
@@ -185,7 +185,7 @@ const BiofeedbackTracker: React.FC<BiofeedbackTrackerProps> = ({ progress, updat
       </div>
 
       {/* Save Button */}
-      <div className="card">
+      <div className="card-gradient">
         <button
           onClick={handleSave}
           className="btn-primary w-full flex items-center justify-center space-x-2"
@@ -197,12 +197,12 @@ const BiofeedbackTracker: React.FC<BiofeedbackTrackerProps> = ({ progress, updat
 
       {/* Quick Stats */}
       {Object.keys(progress.biofeedbackEntries).length > 0 && (
-        <div className="card">
+        <div className="card-gradient">
           <div className="flex items-center space-x-3 mb-4">
             <TrendingUp className="h-5 w-5 text-green-600" />
-            <h3 className="text-lg font-semibold text-gray-900">Your Progress</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Your Progress</h3>
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             You've logged biofeedback data for {Object.keys(progress.biofeedbackEntries).length} day(s).
             Keep tracking to identify patterns and improvements!
           </p>
