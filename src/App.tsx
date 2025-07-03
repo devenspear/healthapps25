@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './lib/auth';
+import { AuthProvider, useAppAuth } from './lib/auth';
 import AuthGuard from './components/AuthGuard';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { UserProgress } from './types';
@@ -12,6 +12,7 @@ import BiofeedbackTracker from './components/BiofeedbackTracker';
 import CleanseJournal from './components/CleanseJournal';
 import PostCleanseIntegration from './components/PostCleanseIntegration';
 import { cleanseCalendar } from './data/cleanseCalendar';
+import { fetchProgress, saveProgress } from './lib/api';
 
 const initialProgress: UserProgress = {
   currentDay: 1,
@@ -26,11 +27,36 @@ const initialProgress: UserProgress = {
 };
 
 function AppContent() {
+  const { userId } = useAppAuth();
   const [progress, setProgress] = useLocalStorage<UserProgress>('cleanse-progress', initialProgress);
 
-  const updateProgress = (newProgress: Partial<UserProgress>) => {
-    setProgress(prev => ({ ...prev, ...newProgress }));
-  };
+  // Hydrate from server once we have a userId
+  React.useEffect(() => {
+    async function loadRemote() {
+      if (!userId) return;
+      try {
+        const remote = await fetchProgress(userId);
+        if (remote) {
+          setProgress(remote);
+        }
+      } catch (err) {
+        console.error('Failed to fetch remote progress', err);
+      }
+    }
+    loadRemote();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId]);
+
+  const updateProgress = React.useCallback((newProgress: Partial<UserProgress>) => {
+    setProgress(prev => {
+      const updated = { ...prev, ...newProgress } as UserProgress;
+      // Fire and forget remote save
+      if (userId) {
+        saveProgress(userId, updated).catch(err => console.error('saveProgress failed', err));
+      }
+      return updated;
+    });
+  }, [setProgress, userId]);
 
   return (
     <Router>

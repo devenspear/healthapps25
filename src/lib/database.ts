@@ -249,4 +249,38 @@ export async function saveJournalEntry(userId: string, entryData: any) {
     console.error('Error saving journal entry:', error);
     throw error;
   }
+}
+
+export async function getDayEntries(userId: string) {
+  try {
+    const result = await sql`
+      SELECT * FROM day_entries WHERE user_id = ${userId} ORDER BY day ASC
+    `;
+    return result.rows;
+  } catch (error) {
+    console.error('Error getting day entries:', error);
+    throw error;
+  }
+}
+
+export async function saveDayEntry(userId: string, entryData: any) {
+  try {
+    const result = await sql`
+      INSERT INTO day_entries (
+        user_id, day, completed, die_off_score, tasks_completed
+      ) VALUES (
+        ${userId}, ${entryData.day}, ${entryData.completed}, ${entryData.dieOffScore}, ${JSON.stringify(entryData.tasks || [])}
+      )
+      ON CONFLICT (user_id, day) DO UPDATE SET
+        completed = EXCLUDED.completed,
+        die_off_score = EXCLUDED.die_off_score,
+        tasks_completed = EXCLUDED.tasks_completed,
+        updated_at = NOW()
+      RETURNING *
+    `;
+    return result.rows[0];
+  } catch (error) {
+    console.error('Error saving day entry:', error);
+    throw error;
+  }
 } 
