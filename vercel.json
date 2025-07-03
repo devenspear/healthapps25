@@ -40,7 +40,7 @@
     }
   ],
   "env": {
-    "REACT_APP_CLERK_PUBLISHABLE_KEY": "pk_live_Y2xlcmsuaGVhbHRoLmRldmVuLnNpdGUk",
+    "REACT_APP_CLERK_PUBLISHABLE_KEY": "pk_live_Y2xlX2RldmVuLnNpdGUk",
     "CLERK_SECRET_KEY": "sk_live_m0e7urUtI1xF7UjOlLxjZEyM2lXkSaWLWsDEuT8Rll"
   }
 } 
