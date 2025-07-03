@@ -77,6 +77,12 @@ const AuthPage: React.FC = () => {
             {isSignUp ? (
               <SignUp 
                 routing="hash"
+                fields={[
+                  { name: 'firstName', required: true },
+                  { name: 'lastName', required: true },
+                  { name: 'emailAddress', required: true },
+                  { name: 'password', required: true }
+                ]}
                 appearance={{
                   elements: {
                     formButtonPrimary: 'bg-primary-600 hover:bg-primary-700',

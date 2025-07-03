@@ -10,6 +10,7 @@ import {
   Clock
 } from 'lucide-react';
 import { format, addDays, parseISO } from 'date-fns';
+import { useAppAuth } from '../lib/auth';
 
 interface DashboardProps {
   progress: UserProgress;
@@ -17,6 +18,7 @@ interface DashboardProps {
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ progress }) => {
+  const { user } = useAppAuth();
   const startDate = parseISO(progress.startDate);
   const currentDate = addDays(startDate, progress.currentDay - 1);
   const completionPercentage = (progress.completedDays.length / 28) * 100;
@@ -55,7 +57,7 @@ const Dashboard: React.FC<DashboardProps> = ({ progress }) => {
       <div className="hero-gradient rounded-2xl p-6 text-white mb-6">
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-2">
-            Welcome Back, Biohacker! 🚀
+            Welcome Back, {user?.firstName || 'Biohacker'}! 🚀
           </h2>
           <p className="text-white/90 mb-4">
             Day {progress.currentDay} of your parasite cleanse journey

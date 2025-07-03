@@ -39,13 +39,18 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700 px-4 py-3">
         <div className="flex items-center justify-between">
           {/* User Profile */}
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center">
-              <User className="h-4 w-4 text-white" />
+          <div className="flex items-center space-x-3">
+            <div className="w-9 h-9 hero-gradient rounded-full flex items-center justify-center">
+              <span className="text-white font-semibold text-sm">
+                {user?.firstName ? user.firstName.charAt(0).toUpperCase() : 'U'}
+              </span>
             </div>
             <div className="hidden sm:block">
               <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                {user?.firstName || 'User'}
+                Welcome back, {user?.firstName || 'User'}!
+              </p>
+              <p className="text-xs text-gray-600 dark:text-gray-400">
+                {user?.firstName && user?.lastName ? `${user.firstName} ${user.lastName}` : 'Health Tracker User'}
               </p>
             </div>
           </div>
