@@ -1,250 +1,188 @@
-# 🧠 Biohacker Parasite Cleanse HQ
+# Paratox - 28-Day Parasite Cleanse Tracker
 
-A modern, professional web-based mobile application for tracking your 28-day parasite cleanse journey. Built with React, TypeScript, and Tailwind CSS.
+A modern, professional health tracking application for guided parasite cleanse protocols. Built with React, TypeScript, and Tailwind CSS.
 
-## 🌟 Features
+## 🎨 Recent Updates (v2.0)
 
-### 📱 Mobile-First Design
-- Responsive interface optimized for smartphones
-- Clean, professional UI with intuitive navigation
-- Progressive Web App capabilities
+### Visual Design Overhaul
+- **Purple Radial Background**: Beautiful gradient from light purple (center) to dark purple (edges)
+- **Glassmorphism Headers**: Modern frosted glass effect for all page headers with backdrop blur
+- **Consistent Branding**: "Paratox" branding throughout with professional white typography
+- **Responsive Layout**: Optimized for mobile-first design with centered content column
 
-### 🗓️ 28-Day Cleanse Calendar
-- Daily task tracking with progress visualization
-- Phase-based protocol (Priming → Kill Phase 1 → Kill Phase 2 → Rebuild)
-- Die-off symptom scoring (1-10 scale)
-- Visual progress indicators
+### Authentication & User Experience
+- **Development Mode**: Smart localhost detection with mock authentication for testing
+- **Clerk Integration**: Production-ready authentication with user profiles
+- **Personalized Welcome**: Headers use actual user first names from Clerk
+- **Clickable Logo**: Paratox header returns users to start page
+- **Perfectly Centered**: Header logo stays centered regardless of other elements
 
-### 💊 Comprehensive Supplement Stack
-- Complete database of cleanse supplements
-- Searchable and filterable by phase
-- Detailed dosage, timing, and brand information
-- Phase-specific color coding
+### App Structure
+- **StartPage**: Clean landing page with consistent styling and working navigation
+- **Dashboard**: Personalized welcome with user data and progress tracking
+- **Calendar**: Day-by-day protocol tracking with glassmorphism header
+- **Supplements**: Complete supplement guide and search functionality
+- **Biofeedback**: Physiological and subjective metrics tracking
+- **Journal**: Daily reflection and meal logging
+- **Post-Cleanse**: Integration and rebuilding protocols
 
-### 📈 Biofeedback Tracker
-- Physiological metrics: HRV, heart rate, sleep, temperature
-- Subjective assessments: mood, energy, brain fog, libido
-- Historical data visualization
-- Notes and observations
-
-### 📖 Daily Journal
-- Structured reflection templates
-- Physical, emotional, cognitive, and spiritual tracking
-- Die-off symptom logging with intensity scoring
-- Meal tracking with notes
-- Progress insights
-
-### ⚙️ Post-Cleanse Integration
-- Comprehensive rebuilding protocol
-- Food reintroduction guidelines
-- Long-term maintenance strategies
-- Warning signs and emergency protocols
+### Technical Features
+- **Database Persistence**: Vercel Postgres integration for user data
+- **Progress Tracking**: Real-time day counting and completion status
+- **Mock Development**: Local development with bypass authentication
+- **Cross-browser Support**: Safari-compatible backdrop filters
+- **Responsive Design**: Mobile-optimized with proper spacing
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (version 16 or higher)
-- npm or yarn package manager
+- Node.js 16+ 
+- npm or yarn
 
-### Installation
-
-1. **Clone or download the project**
-   ```bash
-   git clone <repository-url>
-   cd biohacker-parasite-cleanse-app
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Start the development server**
-   ```bash
-   npm start
-   ```
-
-4. **Open your browser**
-   Navigate to `http://localhost:3000` to view the application
-
-### Building for Production
-
+### Local Development
 ```bash
-npm run build
+# Install dependencies
+npm install
+
+# Start development server
+npm start
+
+# App will open at http://localhost:3000
+# Authentication is bypassed for local development
 ```
 
-This creates an optimized production build in the `build` folder.
+### Environment Variables
 
-## 📱 Usage Guide
+#### Development (.env.local)
+```bash
+# Local development uses mock authentication
+# No environment variables needed
+```
 
-### Getting Started
-1. **Dashboard**: Overview of your progress and quick actions
-2. **Calendar**: Navigate through your 28-day protocol
-3. **Supplements**: Reference guide for all cleanse supplements
-4. **Biofeedback**: Log daily health metrics
-5. **Journal**: Reflect on your daily experience
-6. **Post-Cleanse**: Integration and rebuilding guidance
+#### Production (Vercel)
+```bash
+REACT_APP_CLERK_PUBLISHABLE_KEY=pk_live_...
+CLERK_SECRET_KEY=sk_live_...
+HEALTH_DATABASE_URL=postgresql://...
+```
 
-### Data Persistence
-- All data is stored locally in your browser
-- Progress automatically saves as you use the app
-- No account creation required
+## 🏗️ Architecture
 
-### Daily Workflow
-1. Check Dashboard for today's phase and quick stats
-2. Complete daily tasks in the Calendar
-3. Rate die-off symptoms (1-10 scale)
-4. Log biofeedback metrics
-5. Write journal reflections
-6. Track meals and observations
+### Authentication Flow
+- **Development**: Mock authentication with localhost detection
+- **Production**: Clerk authentication with user profiles and database sync
 
-## 🏗️ Technical Architecture
+### Database Schema
+- `users`: User profiles and metadata
+- `user_progress`: Daily progress and completion tracking
+- `biofeedback_entries`: Physiological and subjective metrics
+- `journal_entries`: Daily reflections and meal logs
+- `day_entries`: Protocol tasks and die-off scores
 
-### Built With
-- **React 18** - Modern UI framework
-- **TypeScript** - Type-safe JavaScript
-- **Tailwind CSS** - Utility-first styling
-- **React Router** - Client-side routing
-- **Lucide React** - Beautiful icons
-- **date-fns** - Date manipulation
-
-### Key Features
-- **Local Storage**: All data persists in browser
-- **Responsive Design**: Mobile-first approach
-- **Type Safety**: Full TypeScript implementation
-- **Performance**: Optimized React components
-- **Accessibility**: ARIA labels and semantic HTML
-
-### Project Structure
+### Component Structure
 ```
 src/
-├── components/          # React components
-├── data/               # Static data (supplements, calendar)
-├── hooks/              # Custom React hooks
-├── types/              # TypeScript interfaces
-├── App.tsx             # Main app component
-├── index.tsx           # Entry point
-└── index.css           # Global styles
+├── components/
+│   ├── AuthGuard.tsx          # Authentication wrapper
+│   ├── Dashboard.tsx          # Main dashboard with progress
+│   ├── CleanseCalendar.tsx    # Day-by-day protocol
+│   ├── SupplementStack.tsx    # Supplement guide
+│   ├── BiofeedbackTracker.tsx # Metrics tracking
+│   ├── CleanseJournal.tsx     # Daily journaling
+│   ├── PostCleanseIntegration.tsx # Rebuilding phase
+│   ├── Layout.tsx             # App layout and navigation
+│   └── StartPage.tsx          # Landing page
+├── lib/
+│   ├── auth.tsx               # Authentication logic
+│   ├── api.ts                 # API client functions
+│   └── database.ts            # Database utilities
+├── data/
+│   ├── cleanseCalendar.ts     # 28-day protocol data
+│   └── supplements.ts         # Supplement information
+└── types/
+    └── index.ts               # TypeScript definitions
 ```
 
-## 🔧 Customization
+## 🎯 Key Features
 
-### Adding Supplements
-Edit `src/data/supplements.ts` to modify the supplement database.
+### Progress Tracking
+- 28-day protocol calendar
+- Daily task completion
+- Die-off symptom scoring
+- Overall progress visualization
 
-### Modifying Phases
-Update `src/data/cleanseCalendar.ts` to adjust the 28-day protocol.
+### Biofeedback Monitoring
+- HRV, resting heart rate, temperature delta
+- VO₂ max, active calories, sleep metrics
+- Subjective scoring (mood, energy, brain fog, libido)
+- Notes and observations
 
-### Styling Changes
-Modify `tailwind.config.js` for design system changes or edit component styles directly.
+### Daily Journaling
+- Physical, emotional, cognitive, spiritual reflections
+- Die-off symptom logging and mitigation strategies
+- Meal tracking with detailed food logs
+- Date-based entry management
 
-### Adding Features
-Follow the existing patterns in the components directory for new functionality.
+### Supplement Guidance
+- Complete supplement protocols by phase
+- Search and filtering capabilities
+- Dosage and timing instructions
+- Phase-specific recommendations
 
-## ⚠️ Important Notes
+## 🚀 Deployment
 
-### Medical Disclaimer
-This application is for informational and tracking purposes only. Always consult with a qualified healthcare provider before starting any cleanse or supplement protocol.
+### Vercel Deployment
+1. Connect GitHub repository to Vercel
+2. Configure environment variables in Vercel dashboard
+3. Deploy automatically on push to main branch
 
-### Data Privacy
-- All data is stored locally in your browser
-- No personal information is transmitted to external servers
-- Clear browser data will reset your progress
+### Domain Setup
+- Production: `paratox.health`
+- Clerk authentication domain: `accounts.paratox.health`
+- Custom domain configuration with GoDaddy DNS
 
-### Browser Compatibility
-- Modern browsers (Chrome, Firefox, Safari, Edge)
-- JavaScript must be enabled
-- Local storage must be available
+## 🛠️ Development Workflow
+
+### Local Testing
+- Mock authentication automatically enabled on localhost
+- All features work without database connection
+- Real-time preview of design changes
+
+### Production Testing
+- Full Clerk authentication flow
+- Database persistence and sync
+- User profile integration
+
+## 📱 Mobile Optimization
+
+- Mobile-first responsive design
+- Touch-friendly interface elements
+- Optimized spacing and typography
+- Progressive Web App capabilities
+
+## 🔒 Security
+
+- Clerk authentication with production keys
+- Database connection encryption
+- Environment variable protection
+- CORS and security headers
+
+## 📈 Future Enhancements
+
+- Push notifications for protocol reminders
+- Advanced analytics and trend visualization
+- Integration with wearable devices
+- Community features and progress sharing
+- Practitioner dashboard for monitoring clients
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+This is a private health tracking application. For feature requests or bug reports, please contact the development team.
 
 ## 📄 License
 
-This project is for educational and personal use. Please consult healthcare professionals for medical advice.
-
-## 🆘 Support
-
-For technical issues:
-1. Check browser console for errors
-2. Ensure JavaScript and local storage are enabled
-3. Try clearing browser cache and reloading
-4. Use the latest version of a supported browser
-
-## 🔮 Future Enhancements
-
-- Export data functionality
-- Trend analysis and charts
-- Reminder notifications
-- Integration with health devices
-- Social sharing features
-- Multi-language support
-
-## 🆕 2025 Backend Upgrade Overview
-
-The app now runs with a full backend on **Vercel** instead of storing everything in browser-local storage. Key upgrades:
-
-1. **Authentication** – Powered by **Clerk** (username / email / password).
-2. **Database** – **Neon Postgres** accessed through Vercel's `@vercel/postgres` helper.
-3. **Serverless APIs** – All database logic lives in `/api` functions (e.g. `api/setup-user.ts`).
-4. **Environment Isolation** – Each sub-domain (health, crm, etc.) uses its **own** env-var prefix so projects never share a database by accident.
-
-### Required Environment Variables
-| Variable | Scope | Purpose |
-|----------|-------|---------|
-| `REACT_APP_CLERK_PUBLISHABLE_KEY` | Front-end | Public Clerk key (loads the widgets) |
-| `CLERK_SECRET_KEY` | Server | Private Clerk key for serverless functions |
-| `HEALTH_DATABASE_URL` | Server | Connection string for this project's Neon database <br/> (preferred – keeps isolation) |
-| `POSTGRES_URL` | Server | Fallback for local dev or if you don't want a project-specific var |
-
-> ⚠️  **Always set `HEALTH_DATABASE_URL` in Vercel.** The code converts it into `POSTGRES_URL` at runtime so the helper picks it up, preventing accidental reuse of a global database.
-
-### New Project Structure (excerpt)
-```
-api/
-  └─ setup-user.ts      # Serverless function: DB init + user upsert
-src/
-  lib/
-    └─ database.ts      # Shared db helper (server-only)
-    └─ auth.tsx         # Front-end auth provider (calls setup-user API)
-``` 
-
-### Local Development
-1. Create a `.env` file in the project root:
-   ```bash
-   # Clerk
-   REACT_APP_CLERK_PUBLISHABLE_KEY=pk_live_…
-   CLERK_SECRET_KEY=sk_live_…
-
-   # Database (use the same value for both vars if you like)
-   HEALTH_DATABASE_URL="postgres://…?sslmode=require&connect_timeout=10"
-   POSTGRES_URL="$HEALTH_DATABASE_URL"
-   ```
-2. `npm start` – the dev server proxies `/api/*` to Vercel's serverless runtime automatically.
-
-### Deployment Steps (Vercel)
-1. Add the four environment variables above in **Project → Settings → Environment Variables**.
-2. Push to `main`; Vercel builds CRA and the `/api` TypeScript functions.
-3. First load prints a one-time log:
-   ```
-   Database env check → { POSTGRES_URL_present: true, HEALTH_DATABASE_URL_present: true, using: 'HEALTH_DATABASE_URL' }
-   ```
-4. Done – login → DB table auto-creates → user row upserts.
+Private proprietary software. All rights reserved.
 
 ---
 
-### Data Persistence (Updated)
-- **Server-side**: All cleanses, journal entries, and biofeedback are stored in Postgres (Neon).
-- **Client-side**: The UI caches form state transiently but nothing permanent remains in local storage.
-- **API Security**: Every `/api/*` route validates the signed-in user via Clerk before touching the database.
-
----
-
-**Happy Cleansing! 🌱**
-
-*Remember: This journey is about reclaiming your health. Listen to your body, stay hydrated, and don't hesitate to consult with healthcare professionals.* 
+**Built with ❤️ for optimal health and wellness tracking** 

@@ -9,8 +9,11 @@ interface AuthGuardProps {
 const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
   const { isLoaded, isSignedIn } = useAppAuth();
 
-  // Show loading spinner while Clerk loads
-  if (!isLoaded) {
+  // Development mode detection
+  const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+  // Show loading spinner while Clerk loads (only in production)
+  if (!isDevelopment && !isLoaded) {
     return (
       <div className="min-h-screen gradient-bg flex items-center justify-center">
         <div className="text-center">
@@ -21,7 +24,12 @@ const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
     );
   }
 
-  // Show sign-in if not authenticated
+  // In development mode, if not signed in, just show the children (App.tsx handles routing)
+  if (isDevelopment) {
+    return <>{children}</>;
+  }
+
+  // Production: Show sign-in if not authenticated
   if (!isSignedIn) {
     return <AuthPage />;
   }

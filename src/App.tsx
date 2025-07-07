@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider, useAppAuth } from './lib/auth';
 import AuthGuard from './components/AuthGuard';
 import { useLocalStorage } from './hooks/useLocalStorage';
@@ -13,6 +13,7 @@ import CleanseJournal from './components/CleanseJournal';
 import PostCleanseIntegration from './components/PostCleanseIntegration';
 import { cleanseCalendar } from './data/cleanseCalendar';
 import { fetchProgress, saveProgress } from './lib/api';
+import StartPage from './components/StartPage';
 
 const initialProgress: UserProgress = {
   currentDay: 1,
@@ -27,7 +28,7 @@ const initialProgress: UserProgress = {
 };
 
 function AppContent() {
-  const { userId } = useAppAuth();
+  const { userId, isSignedIn } = useAppAuth();
   const [progress, setProgress] = useLocalStorage<UserProgress>('cleanse-progress', initialProgress);
 
   // Hydrate from server once we have a userId
@@ -60,34 +61,43 @@ function AppContent() {
 
   return (
     <Router>
-      <div className="App min-h-screen bg-gray-50">
+      <div className="App min-h-screen">
         <Layout>
           <Routes>
-            <Route 
-              path="/" 
-              element={<Dashboard progress={progress} updateProgress={updateProgress} />} 
-            />
-            <Route 
-              path="/calendar" 
-              element={<CleanseCalendar progress={progress} updateProgress={updateProgress} />} 
-            />
-            <Route 
-              path="/supplements" 
-              element={<SupplementStack />} 
-            />
-            <Route 
-              path="/biofeedback" 
-              element={<BiofeedbackTracker progress={progress} updateProgress={updateProgress} />} 
-            />
-            <Route 
-              path="/journal" 
-              element={<CleanseJournal progress={progress} updateProgress={updateProgress} />} 
-            />
-            <Route 
-              path="/post-cleanse" 
-              element={<PostCleanseIntegration />} 
-            />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            {!isSignedIn ? (
+              <>
+                <Route path="/start" element={<StartPage />} />
+                <Route path="*" element={<StartPage />} />
+              </>
+            ) : (
+              <>
+                <Route 
+                  path="/" 
+                  element={<Dashboard progress={progress} updateProgress={updateProgress} />} 
+                />
+                <Route 
+                  path="/calendar" 
+                  element={<CleanseCalendar progress={progress} updateProgress={updateProgress} />} 
+                />
+                <Route 
+                  path="/supplements" 
+                  element={<SupplementStack />} 
+                />
+                <Route 
+                  path="/biofeedback" 
+                  element={<BiofeedbackTracker progress={progress} updateProgress={updateProgress} />} 
+                />
+                <Route 
+                  path="/journal" 
+                  element={<CleanseJournal progress={progress} updateProgress={updateProgress} />} 
+                />
+                <Route 
+                  path="/post-cleanse" 
+                  element={<PostCleanseIntegration />} 
+                />
+                <Route path="/start" element={<StartPage />} />
+              </>
+            )}
           </Routes>
         </Layout>
       </div>

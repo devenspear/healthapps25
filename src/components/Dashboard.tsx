@@ -57,7 +57,7 @@ const Dashboard: React.FC<DashboardProps> = ({ progress }) => {
       <div className="hero-gradient rounded-2xl p-6 text-white mb-6">
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-2">
-            Welcome Back, {user?.username || 'Biohacker'}! 🚀
+            Welcome Back, {user?.firstName || user?.username || 'User'}!
           </h2>
           <p className="text-white/90 mb-4">
             Day {progress.currentDay} of your parasite cleanse journey

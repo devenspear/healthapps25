@@ -3,7 +3,50 @@ import { ClerkProvider, useAuth, useUser } from '@clerk/clerk-react';
 
 const publishableKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 
-if (!publishableKey) {
+// Development mode detection - only works on localhost
+const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+// Development mode mock auth provider
+function DevAuthProvider({ children }: { children: React.ReactNode }) {
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [, setUser] = useState<any>(null);
+  
+  const mockAuth = {
+    isLoaded: true,
+    isSignedIn,
+    userId: isSignedIn ? 'dev-user-123' : null,
+    user: isSignedIn ? {
+      firstName: 'Dev',
+      lastName: 'User',
+      primaryEmailAddress: { emailAddress: 'dev@localhost.com' }
+    } : null,
+    signOut: () => {
+      setIsSignedIn(false);
+      setUser(null);
+      console.log('Mock signOut');
+    }
+  };
+
+  // Expose signIn function globally for StartPage to use
+  React.useEffect(() => {
+    (window as any).mockSignIn = () => {
+      setIsSignedIn(true);
+      setUser({
+        firstName: 'Dev',
+        lastName: 'User',
+        primaryEmailAddress: { emailAddress: 'dev@localhost.com' }
+      });
+    };
+  }, []);
+
+  return (
+    <AuthContext.Provider value={mockAuth}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+if (!publishableKey && !isDevelopment) {
   throw new Error('Missing REACT_APP_CLERK_PUBLISHABLE_KEY environment variable');
 }
 
@@ -19,6 +62,12 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+  // Use mock auth in development mode
+  if (isDevelopment) {
+    return <DevAuthProvider>{children}</DevAuthProvider>;
+  }
+
+  // Use real Clerk in production
   return (
     <ClerkProvider publishableKey={publishableKey!}>
       <AuthWrapper>{children}</AuthWrapper>

@@ -79,48 +79,40 @@ const CleanseCalendar: React.FC<CleanseCalendarProps> = ({ progress, updateProgr
     );
   }
 
-  const getPhaseColor = (phase: string) => {
-    switch (phase) {
-      case 'Priming': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'Kill - Phase 1': return 'bg-red-100 text-red-800 border-red-200';
-      case 'Kill - Phase 2': return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'Rebuild': return 'bg-green-100 text-green-800 border-green-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
-    }
-  };
+
 
   return (
     <div className="p-4 space-y-6">
-      {/* Day Navigation */}
-      <div className="card-gradient">
+      {/* Header */}
+      <div className="hero-gradient rounded-2xl p-6 text-white mb-6">
         <div className="flex items-center justify-between mb-4">
           <button
             onClick={() => navigateDay('prev')}
             disabled={selectedDay === 1}
-            className="p-2 rounded-lg bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-2 rounded-lg bg-white/20 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white/30 transition-colors"
             aria-label="Previous day"
           >
-            <ChevronLeft className="h-5 w-5" />
+            <ChevronLeft className="h-5 w-5 text-white" />
           </button>
           
           <div className="text-center">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Day {selectedDay}</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400">Week {dayEntry.week}</p>
+            <h2 className="text-2xl font-bold text-white">Day {selectedDay}</h2>
+            <p className="text-white/90">Week {dayEntry.week}</p>
           </div>
           
           <button
             onClick={() => navigateDay('next')}
             disabled={selectedDay === 28}
-            className="p-2 rounded-lg bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-2 rounded-lg bg-white/20 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white/30 transition-colors"
             aria-label="Next day"
           >
-            <ChevronRight className="h-5 w-5" />
+            <ChevronRight className="h-5 w-5 text-white" />
           </button>
         </div>
 
         {/* Phase Badge */}
         <div className="text-center">
-          <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium border ${getPhaseColor(dayEntry.phase)}`}>
+          <span className="inline-block px-4 py-2 rounded-full text-sm font-medium bg-white/20 backdrop-blur-sm border border-white/30 text-white">
             {dayEntry.phase}
           </span>
         </div>

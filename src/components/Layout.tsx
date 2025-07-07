@@ -33,12 +33,17 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   ];
 
   return (
-    <div className="flex flex-col h-screen gradient-bg">
+    <div 
+      className="flex flex-col h-screen"
+      style={{
+        background: 'radial-gradient(circle at center, #a855f7 0%, #9333ea 25%, #7c3aed 50%, #6b21a8 75%, #581c87 100%)'
+      }}
+    >
       {/* Header */}
-      <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700 px-4 py-3">
-        <div className="flex items-center justify-between">
-          {/* User Profile */}
-          <div className="flex items-center space-x-3">
+      <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700 px-4 py-4">
+        <div className="flex items-center w-full relative">
+          {/* User Profile - Left Side */}
+          <div className="flex items-center space-x-3 flex-1">
             <div className="w-9 h-9 hero-gradient rounded-full flex items-center justify-center">
               <span className="text-white font-semibold text-sm">
                 {user?.username ? user.username.charAt(0).toUpperCase() : 'U'}
@@ -54,13 +59,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             </div>
           </div>
 
-          {/* App Title */}
-          <div className="hero-gradient rounded-lg px-4 py-1">
-            <span className="text-white font-semibold text-sm">✨ Health Tracker</span>
-          </div>
+          {/* App Title - Absolutely Centered */}
+          <button 
+            onClick={() => window.location.href = '/start'}
+            className="absolute left-1/2 transform -translate-x-1/2 rounded-lg px-4 py-2 flex items-center space-x-2 hover:bg-white/10 transition-colors duration-200"
+          >
+            <span className="text-4xl font-extrabold text-white tracking-tight">Paratox</span>
+          </button>
 
-          {/* Actions */}
-          <div className="flex items-center space-x-2">
+          {/* Actions - Right Side */}
+          <div className="flex items-center space-x-2 flex-1 justify-end">
             <button
               onClick={toggleTheme}
               className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
@@ -85,7 +93,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* Main Content */}
       <main className="flex-1 overflow-y-auto pb-20">
-        <div className="max-w-md mx-auto">
+        <div className="max-w-md mx-auto px-4">
           {children}
         </div>
       </main>
