@@ -46,6 +46,7 @@ const AuthPage: React.FC = () => {
       <div className="max-w-md w-full">
         {/* Header */}
         <div className="text-center mb-8">
+          <img src="/logo.png" alt="Paratox Logo" className="mx-auto h-16 w-16 mb-4 rounded-2xl shadow-lg" />
           <div className="hero-gradient rounded-2xl p-6 text-white mb-6">
             <h1 className="text-3xl font-bold mb-2">✨ Health Tracker</h1>
             <p className="text-white/90">

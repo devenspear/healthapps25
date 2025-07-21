@@ -9,28 +9,28 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
+          50: '#e6f7f6',
+          100: '#c2ece8',
+          200: '#9ddfd9',
+          300: '#78d2ca',
+          400: '#54b8ae', // main brand color
+          500: '#3fa193',
+          600: '#2a8a78',
+          700: '#187e6b',
+          800: '#0a7b6d', // deep accent
+          900: '#06574b',
         },
         secondary: {
-          50: '#fdf4ff',
-          100: '#fae8ff',
-          200: '#f5d0fe',
-          300: '#f0abfc',
-          400: '#e879f9',
-          500: '#d946ef',
-          600: '#c026d3',
-          700: '#a21caf',
-          800: '#86198f',
-          900: '#701a75',
+          50: '#f7faec',
+          100: '#eaf5d0',
+          200: '#d6eaa1',
+          300: '#c2df72',
+          400: '#99c66b', // lime accent
+          500: '#7fa34e',
+          600: '#668032',
+          700: '#4d5d16',
+          800: '#38440d',
+          900: '#232b04',
         },
         lavender: {
           50: '#faf5ff',
@@ -51,10 +51,10 @@ module.exports = {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'hero-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        'card-gradient': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-        'success-gradient': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-        'warning-gradient': 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+        'hero-gradient': 'linear-gradient(135deg, #54b8ae 0%, #0a7b6d 100%)',
+        'card-gradient': 'linear-gradient(135deg, #99c66b 0%, #54b8ae 100%)',
+        'success-gradient': 'linear-gradient(135deg, #99c66b 0%, #54b8ae 100%)',
+        'warning-gradient': 'linear-gradient(135deg, #54b8ae 0%, #99c66b 100%)',
       }
     },
   },

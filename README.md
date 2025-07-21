@@ -186,3 +186,9 @@ Private proprietary software. All rights reserved.
 ---
 
 **Built with ❤️ for optimal health and wellness tracking** Small test change made on 2025-07-07 at 22:07:22
+
+## Brand & UI Updates
+- Brand colors: Teal (#54b8ae), Deep Green (#0a7b6d), Lime (#99c66b)
+- New logo used in header and splash/login page
+- Modernized gradients and color palette throughout the app
+- Improved splash/login page layout and branding

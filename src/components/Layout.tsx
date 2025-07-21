@@ -34,10 +34,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div 
-      className="flex flex-col h-screen"
-      style={{
-        background: 'radial-gradient(circle at center, #a855f7 0%, #9333ea 25%, #7c3aed 50%, #6b21a8 75%, #581c87 100%)'
-      }}
+      className="flex flex-col h-screen bg-hero-gradient"
     >
       {/* Header */}
       <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700 px-4 py-4">
@@ -59,11 +56,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             </div>
           </div>
 
-          {/* App Title - Absolutely Centered */}
+          {/* App Title & Logo - Absolutely Centered */}
           <button 
             onClick={() => window.location.href = '/start'}
             className="absolute left-1/2 transform -translate-x-1/2 rounded-lg px-4 py-2 flex items-center space-x-2 hover:bg-white/10 transition-colors duration-200"
           >
+            <img src="/logo.png" alt="Paratox Logo" className="h-8 w-8 mr-2 rounded-lg shadow" />
             <span className="text-4xl font-extrabold text-white tracking-tight">Paratox</span>
           </button>
 
