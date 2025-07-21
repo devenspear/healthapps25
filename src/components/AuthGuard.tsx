@@ -42,22 +42,17 @@ const AuthPage: React.FC = () => {
   const [isSignUp, setIsSignUp] = React.useState(false);
 
   return (
-    <div className="min-h-screen gradient-bg flex items-center justify-center px-4">
+    <div className="min-h-screen bg-hero-gradient flex items-center justify-center px-4">
       <div className="max-w-md w-full">
-        {/* Header */}
+        {/* Logo - Large and Centered */}
         <div className="text-center mb-8">
-          <img src="/logo.png" alt="Paratox Logo" className="mx-auto h-16 w-16 mb-4 rounded-2xl shadow-lg" />
-          <div className="hero-gradient rounded-2xl p-6 text-white mb-6">
-            <h1 className="text-3xl font-bold mb-2">✨ Health Tracker</h1>
-            <p className="text-white/90">
-              Track your 28-day parasite cleanse journey
-            </p>
-          </div>
+          <img src="/logo.png" alt="Paratox Logo" className="mx-auto h-32 w-32 mb-4 rounded-2xl shadow-lg" />
         </div>
-
-        {/* Auth Forms */}
+        {/* Auth Forms with Tagline */}
         <div className="card-gradient">
           <div className="text-center mb-6">
+            <h1 className="text-3xl font-bold mb-2 text-primary-800">✨ Health Tracker</h1>
+            <p className="text-primary-400 mb-4">Track your 28-day parasite cleanse journey</p>
             <div className="flex space-x-1 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
               <button
                 onClick={() => setIsSignUp(false)}
@@ -124,22 +119,7 @@ const AuthPage: React.FC = () => {
             )}
           </div>
         </div>
-
-        {/* Features */}
-        <div className="mt-8 text-center">
-          <div className="grid grid-cols-2 gap-4 text-sm">
-            <div className="card-gradient p-4">
-              <div className="text-primary-600 text-xl mb-2">📊</div>
-              <div className="text-gray-900 dark:text-gray-100 font-medium">Track Progress</div>
-              <div className="text-gray-600 dark:text-gray-400">28-day journey</div>
-            </div>
-            <div className="card-gradient p-4">
-              <div className="text-primary-600 text-xl mb-2">📱</div>
-              <div className="text-gray-900 dark:text-gray-100 font-medium">Sync Devices</div>
-              <div className="text-gray-600 dark:text-gray-400">Access anywhere</div>
-            </div>
-          </div>
-        </div>
+        {/* Features section removed as requested */}
       </div>
     </div>
   );
