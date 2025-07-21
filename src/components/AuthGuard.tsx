@@ -42,14 +42,14 @@ const AuthPage: React.FC = () => {
   const [isSignUp, setIsSignUp] = React.useState(false);
 
   return (
-    <div className="min-h-screen bg-hero-gradient flex items-center justify-center px-4">
-      <div className="max-w-md w-full">
+    <div className="min-h-screen bg-hero-gradient flex items-center justify-center px-2 sm:px-4">
+      <div className="w-full max-w-md mx-auto">
         {/* Logo - Large and Centered */}
         <div className="text-center mb-8">
           <img src="/logo.png" alt="Paratox Logo" className="mx-auto h-32 w-32 mb-4 rounded-2xl shadow-lg" />
         </div>
         {/* Auth Forms with Tagline */}
-        <div className="card-gradient">
+        <div className="card-gradient w-full rounded-2xl shadow-lg p-4 sm:p-6">
           <div className="text-center mb-6">
             <h1 className="text-3xl font-bold mb-2 text-primary-800">✨ Health Tracker</h1>
             <p className="text-primary-400 mb-4">Track your 28-day parasite cleanse journey</p>
